@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="SWarehouse.Views.Product.ProductAddOrUpdate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SWarehouse.Views.Product"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:valid="clr-namespace:SWarehouse.Validations"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:SWarehouse.Converters"
+             xmlns:paging="clr-namespace:SWarehouse.CustomControls"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="Slt_btn_save" BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <MultiDataTrigger >
+                    <MultiDataTrigger.Conditions >
+                        <Condition Binding="{Binding ElementName=tbx_name,Path=(Validation.HasError)}" Value="False"/>
+                        <Condition Binding="{Binding ElementName=cbx_cat,Path=(Validation.HasError)}" Value="False"/>
+                        <Condition Binding="{Binding ElementName=cbx_unit,Path=(Validation.HasError)}" Value="False"/>
+                        <Condition Binding="{Binding ElementName=cbx_sup,Path=(Validation.HasError)}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+        <converter:ProductImageConverter x:Key="ProductImageConverter"/>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Grid.RowSpan="8" BorderThickness="0.7" BorderBrush="Silver" Margin="5" CornerRadius="7" MinWidth="320" MaxWidth="320">
+            <Grid>
+                <Image Source="{Binding ProductCurrent.ImagePath,Converter={StaticResource ProductImageConverter}}" Stretch="Uniform" Margin="2"/>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Background="#7D8085" BorderBrush="#7D8085" Content="{materialDesign:PackIcon Kind=Camera, Size=19}" Foreground="White" Opacity="0.7"
+                        Command="{Binding OpenDialogChooseImageCMD}"/>
+            </Grid>
+        </Border>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Add new" Margin="17 17 7 7" FontSize="16" FontWeight="SemiBold"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbx_name" Style="{StaticResource MaterialDesignOutlinedTextBox}" MinWidth="320" Margin="15"  materialDesign:HintAssist.Hint="{DynamicResource NAME}" FontSize="14">
+            <TextBox.Text>
+                <Binding Path="ProductCurrent.Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <valid:EmptyRuleValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cbx_cat" ItemsSource="{Binding Categories}" DisplayMemberPath="Name" Style="{StaticResource MaterialDesignOutlinedComboBox}" MinWidth="320" Margin="15"  materialDesign:HintAssist.Hint="Danh Mục" FontSize="14">
+            <ComboBox.SelectedItem>
+                <Binding Path="CategorySelected" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <valid:NullSelectedItemValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+        </ComboBox>
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbx_unit" ItemsSource="{Binding Units}" DisplayMemberPath="Name" Style="{StaticResource MaterialDesignOutlinedComboBox}" MinWidth="320" Margin="15"  materialDesign:HintAssist.Hint="Đơn Vị Tính" FontSize="14">
+            <ComboBox.SelectedItem>
+                <Binding Path="UnitSelected" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <valid:NullSelectedItemValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+        </ComboBox>
+        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="cbx_sup" ItemsSource="{Binding Suppliers}" DisplayMemberPath="Name" Style="{StaticResource MaterialDesignOutlinedComboBox}" MinWidth="320" Margin="15"  materialDesign:HintAssist.Hint="Nhà Cung Cấp" FontSize="14">
+            <ComboBox.SelectedItem>
+                <Binding Path="SupplierSelected" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <valid:NullSelectedItemValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules> 
+                </Binding>
+            </ComboBox.SelectedItem>
+        </ComboBox>
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button x:Name="btn_save" Style="{StaticResource Slt_btn_save}" Content="{DynamicResource SAVE}" Width="{Binding ElementName=btn_cancel,Path=ActualWidth}" Command="{Binding SaveCMD}" IsDefault="True"/>
+            <Button x:Name="btn_cancel" Margin="5 0" Content="{DynamicResource CANCEL}" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding CancelCMD}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

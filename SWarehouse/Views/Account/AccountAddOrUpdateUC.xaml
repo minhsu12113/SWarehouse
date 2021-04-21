@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="SWarehouse.Views.Account.AccountAddOrUpdateUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SWarehouse.Views.Account"
+             xmlns:helper="clr-namespace:SWarehouse.Utilitys"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:SWarehouse.Converters"
+             xmlns:paging="clr-namespace:SWarehouse.CustomControls"
+             xmlns:valid="clr-namespace:SWarehouse.Validations"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converter:AvatarAccountConverter x:Key="AvatarAccountConverter"/>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignFilterChipAccentCheckBox}" x:Key="CheckboxPermision">
+            <Setter Property="Margin" Value="5 0"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Foreground" Value="Green"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Width="390" Height="590" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Header}" HorizontalAlignment="Center" Margin="5 15" FontSize="18" FontWeight="SemiBold"/>
+
+        
+        <!--#region [Info Account] -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".27*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width=".27*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Avatar -->
+            <Ellipse Grid.Column="1"  Margin="10" Stroke="Gray" StrokeThickness="0.7">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding AccountCurrent.ImagePath,Converter={StaticResource AvatarAccountConverter}}" Stretch="UniformToFill"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Button Grid.Column="1" Margin="130 0 0 10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Command="{Binding OpenDialogChooseImageCMD}"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=Camera, Size=19}"/>
+        </Grid>
+
+        <TextBox x:Name="tbx_username" Grid.Row="3" Style="{StaticResource MaterialDesignOutlinedTextBox}" FontSize="16" Margin="17 7 17 20" materialDesign:HintAssist.Hint="Tài Khoản">
+            <TextBox.Text>
+                <Binding Path="AccountCurrent.UserName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <valid:EmptyRuleValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <PasswordBox Grid.Row="4" x:Name="tbx_password" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" FontSize="16" Margin="17 7 17 20" materialDesign:HintAssist.Hint="Mật Khẩu" helper:PasswordHelper.Attach="True">
+            <helper:PasswordHelper.Password>
+                <Binding Path="AccountCurrent.Password" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <valid:EmptyRuleValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </helper:PasswordHelper.Password>
+        </PasswordBox>
+        <PasswordBox Grid.Row="5" x:Name="tbx_confirmpassword" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" FontSize="16" Margin="17 7 17 0" materialDesign:HintAssist.Hint="Nhập Lại Mật Khẩu" helper:PasswordHelper.Attach="True" >
+            <helper:PasswordHelper.Password>
+                <Binding Path="ConfirmPassword" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <valid:EmptyRuleValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </helper:PasswordHelper.Password>
+        </PasswordBox>
+        <!--#endregion-->        
+        <TextBlock Grid.Row="7" Margin="19 7 17 7" Text="Mật khẩu không khớp!" FontSize="16" FontWeight="SemiBold" Foreground="OrangeRed" Visibility="{Binding IsErrorPassword ,Converter={StaticResource BoolToVisibility}}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="7" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Lưu" Width="69" Command="{Binding SaveCMD}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=tbx_username,Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=tbx_password,Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=tbx_confirmpassword,Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding IsErrorPassword}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFlatButton}" Content="Hủy" Width="69" Command="{Binding CancelCMD}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

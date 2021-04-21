@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="SWarehouse.Views.Unit.UnitAddOrUpdateUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SWarehouse.Views.Unit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:valid="clr-namespace:SWarehouse.Validations"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="Slt_btn_save" BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=tbx_name,Path=(Validation.HasError)}" Value="False">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding Header}" Margin="17 7 7 7" FontSize="16" FontWeight="SemiBold"/>
+        <TextBox Grid.Row="1" Name="tbx_name" Style="{StaticResource MaterialDesignOutlinedTextBox}" MinWidth="190" Margin="15"  materialDesign:HintAssist.Hint="{DynamicResource NAME}" FontSize="14">
+            <TextBox.Text>
+                <Binding Path="CurrentUnit.Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <valid:EmptyRuleValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button x:Name="btn_save" Style="{StaticResource Slt_btn_save}" Content="{DynamicResource SAVE}" Width="{Binding ElementName=btn_cancel,Path=ActualWidth}" Command="{Binding SaveCMD}" IsDefault="True"/>
+            <Button x:Name="btn_cancel" Margin="5 0" Content="{DynamicResource CANCEL}" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding CancelCMD}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

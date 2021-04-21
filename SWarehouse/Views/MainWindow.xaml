@@ -1,0 +1,124 @@
+﻿<Window x:Class="SWarehouse.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWarehouse"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Background="Transparent"        
+        mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True"
+        Title="S-Warehouse" Height="750" Width="1300" WindowStartupLocation="CenterScreen" DataContext="{StaticResource MainViewModel}">
+
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="ExpandIn" Duration="0:0:0.8"/>
+            <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
+        </materialDesign:TransitioningContent.OpeningEffects>
+        <Border CornerRadius="25" Background="#121432">
+            <materialDesign:DialogHost Identifier="MainDialog" CloseOnClickAway="True">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="S-Warehoue" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="White" FontSize="16" Margin="0 27 0 0"/>
+
+                    <!--#region [WorkSpace] -->
+                    <Border Background="{StaticResource MaterialDesignPaper}" Grid.Column="1" CornerRadius="25">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--#region [WindowBar] -->
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <Button x:Name="btn_MinimizedWindow" Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{materialDesign:PackIcon Kind=WindowMinimize}" Foreground="Gray"/>
+                                <Button x:Name="btn_ShutDownApp" materialDesign:ButtonAssist.CornerRadius="0 25 0 0" Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{materialDesign:PackIcon Kind=Power}" Foreground="Red"/>
+                            </StackPanel>
+                            <!--#endregion-->
+
+                            <!--#region [MainView] -->
+                            <ContentControl Grid.Row="1" Content="{Binding ViewCurrent}"/>
+                            <!--#endregion-->
+                        </Grid>
+                    </Border>
+                    <!--#endregion-->
+                    <!--#region [Menu Navigaton] -->
+                    <Grid Grid.Column="0" VerticalAlignment="Center">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <ListBox Grid.Row="1" Margin="0 49 0 0" ItemsSource="{Binding ListItemNavigate}" SelectedItem="{Binding SelectedView}">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                        <Setter Property="Padding" Value="0 9"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#34364F"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#34364F"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Height="39">
+                                            <Grid.Style>
+                                                <Style TargetType="Grid">
+                                                    <Setter Property="Opacity" Value="0.6"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                            <DataTrigger.EnterActions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard Storyboard.TargetProperty="Opacity" >
+                                                                        <DoubleAnimation Duration="0:0:0.3" To="1"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </DataTrigger.EnterActions>
+                                                            <DataTrigger.ExitActions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard Storyboard.TargetProperty="Opacity" >
+                                                                        <DoubleAnimation Duration="0:0:0.3" To="0.6"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </DataTrigger.ExitActions>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Grid.Style>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5"/>
+                                                <ColumnDefinition Width=".8*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Margin="0 -5" Background="White" CornerRadius="0 7 7 0" Visibility="{Binding IsSelected,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                            <materialDesign:PackIcon Grid.Column="1" Margin="0 3" Kind="{Binding Icon}" Width="Auto" Height="Auto" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Margin="0 0 0 0" Text="{Binding DisplayName}" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </Grid>
+                    <!--#endregion-->
+                </Grid>
+            </materialDesign:DialogHost>
+        </Border>
+    </materialDesign:TransitioningContent>
+    
+</Window>

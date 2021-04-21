@@ -1,0 +1,73 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:SWarehouse"
+                    xmlns:view="clr-namespace:SWarehouse.Views"
+                    xmlns:dialog="clr-namespace:SWarehouse.Views.Dialogs"
+                    xmlns:viewmodels="clr-namespace:SWarehouse.ViewModels"
+                    xmlns:homeviewmodel="clr-namespace:SWarehouse.ViewModels.Home"
+                    xmlns:accviewmodel="clr-namespace:SWarehouse.ViewModels.Accounts"
+                    xmlns:catviewmodel="clr-namespace:SWarehouse.ViewModels.Categorys"
+                    xmlns:prodviewmodel="clr-namespace:SWarehouse.ViewModels.Products"
+                    xmlns:supviewmodel="clr-namespace:SWarehouse.ViewModels.Suppliers"
+                    xmlns:unitviewmodel="clr-namespace:SWarehouse.ViewModels.Units"
+                    xmlns:statisviewmodel="clr-namespace:SWarehouse.ViewModels.Statistic"
+                    xmlns:settingviewmodel="clr-namespace:SWarehouse.ViewModels.Setting"
+                    xmlns:homeview="clr-namespace:SWarehouse.Views.Home"
+                    xmlns:accview="clr-namespace:SWarehouse.Views.Account"
+                    xmlns:catview="clr-namespace:SWarehouse.Views.Category"
+                    xmlns:prodview="clr-namespace:SWarehouse.Views.Product"
+                    xmlns:supview="clr-namespace:SWarehouse.Views.Suppliers"
+                    xmlns:unitview="clr-namespace:SWarehouse.Views.Unit"
+                    xmlns:statisview="clr-namespace:SWarehouse.Views.Statistic"
+                    xmlns:settingview="clr-namespace:SWarehouse.Views.Setting">
+
+
+    <!-- view -->
+    <DataTemplate DataType="{x:Type homeviewmodel:HomeViewModel}">
+        <homeview:HomeUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type accviewmodel:AccountViewModel}">
+        <accview:AccountUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type accviewmodel:AccountAddOrUpdateViewModel}">
+        <accview:AccountAddOrUpdateUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type catviewmodel:CategoryViewModel}">
+        <catview:CategoryUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type catviewmodel:CategoryAddOrUpdateViewModel}">
+        <catview:CategoryAddOrUpdateUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type prodviewmodel:ProductViewModel}">
+        <prodview:ProductUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type prodviewmodel:ProductAddOrUpdateViewModel}">
+        <prodview:ProductAddOrUpdate/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type supviewmodel:SupplierViewModel}">
+        <supview:SupplierUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type supviewmodel:SupplierAddOrUpdateViewModel}">
+        <supview:SupplierAddOrUpdateUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type unitviewmodel:UnitViewModel}">
+        <unitview:UnitUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type unitviewmodel:UnitAddOrUpdateViewModel}">
+        <unitview:UnitAddOrUpdateUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type statisviewmodel:StatisticViewModel}">
+        <statisview:StatisticUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type settingviewmodel:SettingViewModel}">
+        <settingview:SettingUC/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodels:ConfirmDeleteItemViewModel}">
+        <dialog:DialogConfirmDeleteItemUC/>
+    </DataTemplate>
+
+    <!-- viewmodel -->
+    <viewmodels:LoginViewModel x:Key="LoginViewModel"/>
+    <viewmodels:MainViewModel x:Key="MainViewModel"/>
+
+</ResourceDictionary>

@@ -1,0 +1,116 @@
+﻿<Window x:Class="SWarehouse.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWarehouse.Views"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:helper="clr-namespace:SWarehouse.Utilitys"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="400" Width="700" DataContext="{StaticResource LoginViewModel}"
+        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="Transparent" AllowsTransparency="True" WindowState="{Binding WindowState}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding DragMoveCMD}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <!--primary custom-->
+        <SolidColorBrush x:Key="PrimaryCorlor" Color="#051E31"/>
+        <SolidColorBrush x:Key="SecondPrimaryCorlor" Color="#1F3959"/>
+
+        <!--primary-->
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#13548A"/>
+        <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#5C5B5E"/>
+        <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#13548A"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
+
+        <!--accent-->
+        <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#5C5B5E"/>
+        <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="#FFFFFF"/>
+    </Window.Resources>
+
+
+
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="ExpandIn" Duration="0:0:0.8"/>
+            <materialDesign:TransitionEffect Kind="SlideInFromTop" />
+        </materialDesign:TransitioningContent.OpeningEffects>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.7*"/>
+                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition Width=".5*"/>
+            </Grid.ColumnDefinitions>
+            <!--#region [Background Section] -->
+            <materialDesign:Card Margin="0 30 0 30" Grid.ColumnSpan="3" Background="#E7364D">
+                <Grid ShowGridLines="False" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Margin="0 0 30 0" Text="{DynamicResource WELCOME}" Foreground="White" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                    <Image Margin="20 0 0 0" Source="/Assets/warehouse-2.png" Stretch="Uniform" Grid.Row="1" Grid.RowSpan="3" />
+                    <TextBlock Margin="0 0 20 0" Grid.Row="4" Text="{DynamicResource APP_NAME}" Foreground="White" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+            </materialDesign:Card>
+            <!--#endregion-->
+            <!--#region [Login Section] -->
+            <materialDesign:Card Grid.Column="1" Margin="5">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region [Header] -->
+                    <TextBlock Grid.Row="0" Text="{DynamicResource LOGIN}" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="24" Foreground="#E7364D"/>
+                    <Button Grid.Row="1" Margin="0 0 0 10" VerticalAlignment="Bottom" Background="#E7364D" BorderBrush="#E7364D" Foreground="White"
+                        Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Content="{materialDesign:PackIcon Kind=ShieldLock, Size=29}" KeyboardNavigation.TabNavigation="None"/>
+                    <!--#endregion-->
+                    <!--#region [Info Account] -->
+                    <TextBox Grid.Row="2" Margin="19 0 19 10" FontSize="16" VerticalContentAlignment="Bottom" materialDesign:HintAssist.Hint="{DynamicResource USERNAME}" BorderBrush="Silver"
+                         Text="{Binding CurrentAccount.UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <PasswordBox  Grid.Row="3" Margin="19 0 19 0" FontSize="16" VerticalContentAlignment="Bottom" materialDesign:HintAssist.Hint="{DynamicResource PASSWORD}" BorderBrush="Silver"
+                         helper:PasswordHelper.Attach="True" helper:PasswordHelper.Password="{Binding CurrentAccount.Password, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                    <!--#endregion-->
+                    <!--#region [Last Section] -->
+                    <CheckBox Grid.Row="4" Margin="17 0 0 0" Content="{DynamicResource PASSWORD_REMEMBER}"/>
+                    <Button Grid.Row="5" Margin="15 10 15 0" Background="#E7364D" BorderBrush="#E7364D" Content="{DynamicResource LOGIN}"
+                        Command="{Binding LoginCMD}" IsDefault="True"/>
+                    <TextBlock Grid.Row="6" Visibility="{Binding ShowTextWhenLoginFailed,Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{DynamicResource LOGIN_FAILED}" FontWeight="SemiBold" Foreground="Red"/>
+                    <!--#endregion-->
+                </Grid>
+            </materialDesign:Card>
+            <!--#endregion-->
+            <!--#region [Window Bar Section] -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30">
+                <Button Background="Transparent" BorderBrush="Transparent" Content="{materialDesign:PackIcon Kind=WindowMinimize}" Command="{Binding MinimizedWindowCMD}"/>
+                <Button Background="Transparent" BorderBrush="Transparent" Content="{materialDesign:PackIcon Kind=Close}" Command="{Binding CloseWindowCMD}"/>
+            </StackPanel>
+            <!--#endregion-->
+        </Grid>
+    </materialDesign:TransitioningContent>   
+</Window>

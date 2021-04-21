@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!--#region [Common]-->
+    <sys:String x:Key="NONE">None</sys:String>
+    <sys:String x:Key="PRODUCT">Hàng Hóa</sys:String>
+    <sys:String x:Key="CATEGORYS">Danh Mục</sys:String>
+    <sys:String x:Key="UNITS">Đơn Vị Tính</sys:String>
+    <sys:String x:Key="ADD_NEW">Thêm Mới</sys:String>
+    <sys:String x:Key="EDIT">Chỉnh Sửa</sys:String>
+    <sys:String x:Key="SUPPLIER">Nhà Cung Cấp</sys:String>
+    <sys:String x:Key="STATISTIC">Thống Kê</sys:String>
+    <sys:String x:Key="ACCOUNTS">Tài Khoản</sys:String>
+    <sys:String x:Key="SETTINGS">Cài Đặt</sys:String>
+    <sys:String x:Key="APP_NAME">Phần Mềm Quản Lý Kho</sys:String>
+    <sys:String x:Key="WELCOME">Chào Mừng</sys:String>
+    <sys:String x:Key="LOGIN_FAILED">Sai Mật Khẩu Hoặc Tài Khoản!</sys:String>
+    <sys:String x:Key="CANCEL">Hủy</sys:String>
+    <sys:String x:Key="STT">STT</sys:String>
+    <sys:String x:Key="LOGIN">Đăng Nhập</sys:String>
+    <sys:String x:Key="LOGOUT_CONFIRM">Bạn có muốn đăng xuất phần mềm hay không?</sys:String>
+    <sys:String x:Key="HOME">Trang Chủ</sys:String>   
+    <sys:String x:Key="YES">Có</sys:String>
+    <sys:String x:Key="NO">Không</sys:String>
+    <sys:String x:Key="SAVE">Lưu</sys:String>
+    <sys:String x:Key="OK">OK</sys:String>
+    <sys:String x:Key="SETTING">Cài Đặt</sys:String>
+    <sys:String x:Key="CMS_SERVER_CONNECT">Kết Nối CMS Server</sys:String>
+    <sys:String x:Key="SERVER_NAME_CMS">TÊN MÁY CHỦ</sys:String>
+    <sys:String x:Key="SERVER_ADDRESS_CMS">ĐỊA CHỈ</sys:String>
+    <sys:String x:Key="HTTP_PORT_CMS">CỔNG HTTP</sys:String>
+    <sys:String x:Key="USERNAME">Tên Đăng Nhập</sys:String>
+    <sys:String x:Key="PASSWORD">Mật Khẩu</sys:String>
+    <sys:String x:Key="PASSWORD_REMEMBER">Nhớ Mật Khẩu</sys:String>
+    <sys:String x:Key="CONNECT_TO_CMS_SERVER">KẾT NỐI</sys:String>
+    <sys:String x:Key="EXIST_APP_CONFIRM">Bạn Có Muốn Thoát Không?</sys:String>
+    <sys:String x:Key="SEARCH">Tìm Kiếm</sys:String>
+    <sys:String x:Key="EXPORT_EXCEL">Xuất Excel</sys:String>
+    <sys:String x:Key="CAMERA_NAME">Tên Camera</sys:String>
+    <sys:String x:Key="SERVER_NAME">Tên Server</sys:String>
+    <sys:String x:Key="TIME">Thời gian</sys:String>
+    <sys:String x:Key="TIME_NOT_VALID">Thời gian không hợp lệ</sys:String>
+    <sys:String x:Key="CANNOT_EMPTY">Vui lòng nhập thông tin</sys:String>
+    <sys:String x:Key="PLEASE_WAIT">Vui Lòng Chờ</sys:String>
+    <sys:String x:Key="DO_YOU_WANT_EXIT_APP">Bạn có muốn đóng ứng dụng không?</sys:String>
+    <sys:String x:Key="OVERVIEW">Tổng Quan</sys:String>
+    <sys:String x:Key="ENTER_TEXT_TO_SEARCH">Nhập thông tin để tìm kiếm...</sys:String>
+    <sys:String x:Key="DO_YOU_WANT_DELETE">Bạn có muốn xóa</sys:String>
+    <!--#endregion [Common]-->
+    <!--#region [Header ListView] -->
+    <sys:String x:Key="NO.">STT</sys:String>
+    <sys:String x:Key="NAME">Tên</sys:String>
+    <sys:String x:Key="USER_CREATED">Người Tạo</sys:String>
+    <sys:String x:Key="TIME_CREATED">Thời Gian Tạo</sys:String>
+    <sys:String x:Key="TIME_MODIFIED">Chỉnh Sửa Gần Đây</sys:String>
+    <sys:String x:Key="USER_MODIFIED">Người Chỉnh Sửa</sys:String>
+    <sys:String x:Key="ACTION">Chức Năng</sys:String>
+    <!--#endregion-->
+    <!--#region [Dashboard] -->
+    
+    <!--#endregion-->
+    <!--#region [Unit] -->
+    
+    <!--#endregion-->
+
+</ResourceDictionary>
